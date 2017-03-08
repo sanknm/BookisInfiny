@@ -1,0 +1,59 @@
+<div layout-padding id="sales-booth-pending">
+     <div layout="row" layout-align="space-between center" flex="none" class="search-wrapper">
+          <h4 flex="20" hide-xs></h4>
+          <div flex="60" class="book-search">
+               <md-icon ng-if="!vm.searchText" md-svg-src="assets/svg/search.svg" aria-label="search"></md-icon>
+               <md-icon ng-if="vm.searchText" ng-click="vm.searchText=''" md-svg-src="assets/svg/close.svg" aria-label="search"></md-icon>
+               <input type="text" class="form-control" placeholder="Search your books" ng-model="vm.searchText">
+          </div>
+          <div flex="10">
+          </div>
+     </div>
+     <div layout="row" flex="none" layout-wrap>
+          <md-whiteframe class="md-whiteframe-4dp" flex-gt-md="30" flex-gt-sm="45" flex-sm flex-xs layout-margin layout
+                         ng-repeat="request in vm.requests track by request._id | filter: vm.searchText">
+               <div layout="column" flex ng-class="{'not-seen' : !request.seen.user}">
+                    <div layout="row" flex="none">
+                         <div flex="none" layout="column" class="left">
+                              <div flex="none">
+                                   <img ng-src="{{::request.book.imageUrl}}" alt="book image">
+                              </div>
+                         </div>
+                         <div flex layout="column" class="right">
+                              <div layout="row" layout-align="space-between">
+                                   <div>{{::request.book.title}}</div>
+                                   <i ng-if="request.message" title="{{::request.message}}" class="fa fa-comment-o pointable" ui-sref="myzone.messages({id: request._id})" aria-hidden="true"></i>
+                              </div>
+
+                              <div class="author">{{::request.book.author}}</div>
+                              <br>
+                              <dl class="dl-horizontal">
+                                   <dt>Price:</dt>
+                                   <dd>{{::request.book.price | currency}}</dd>
+                                   <dt>Requested by:</dt>
+                                   <dd>{{::request.user.firstName + ' ' + request.user.lastName}}</dd>
+                                   <dt>Requested on:</dt>
+                                   <dd>{{::request.createdAt | date:'MM/dd/yyyy'}}</dd>
+                                   <dt>Delivery by:</dt>
+                                   <dd>{{::request.delivery}}</dd>
+                                   <dt ng-if="request.message">Message:</dt>
+                                   <dd ng-if="request.message" md-truncate title="{{::request.message}}">{{::request.message}}</dd>
+                              </dl>
+                         </div>
+                    </div>
+                    <div layout="row" layout-align="space-between center" flex="none">
+                         <div><i class="fa fa-hourglass" aria-hidden="true"></i>
+                              <span>{{(request.expire | amDifference : null : 'hours') }}hrs</span>&nbsp;
+                              <span>{{((request.expire | amDifference : null : 'minutes') % 60) }}mins</span>
+                         </div>
+                         <div layout="row" layout-align="end" flex="none">
+                              <md-button class="md-raised md-primary md-small approve" ng-click="vm.approveRequest(request)">Approve</md-button>
+                              <md-button class="md-raised md-small decline" ng-click="vm.declineRequest(request)">Decline</md-button>
+                         </div>
+                    </div>
+               </div>
+          </md-whiteframe>
+     </div>
+
+
+</div>

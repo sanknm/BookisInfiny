@@ -1,0 +1,10 @@
+<div layout-padding>
+     <md-whiteframe class="md-whiteframe-4dp" layout="column" flex>
+          <h3>Set your notification preferences</h3>
+
+          <md-switch flex="none" layout-wrap ng-model="vm.me.notifications[value]" ng-change="vm.updateNotification(value)" aria-label="notification" ng-repeat="(value, key) in vm.me.notifications">
+               {{::vm.notifications[value]}}
+          </md-switch>
+
+     </md-whiteframe>
+</div>

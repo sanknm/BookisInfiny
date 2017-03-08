@@ -1,0 +1,46 @@
+<div layout-padding id="about-me">
+     <md-whiteframe class="md-whiteframe-4dp" layout="column" flex>
+          <div layout="row" layout-align="start start" layout-padding>
+               <form class="form-horizontal" name="form" ng-submit="form.$valid && vm.update(form)" novalidate flex-gt-sm="70" flex-gt-md="50">
+                    <div layout="row" layout-align="start space-around" flex="none" class="image-section">
+                         <div class="profile-image" ng-if="vm.image.uploading">
+                              <md-progress-circular class="uploading" md-diameter="50" md-mode="indeterminate"></md-progress-circular>
+                         </div>
+                         <img class="profile-image" ng-if="vm.me.imageUrl && !vm.image.uploading" ng-src="{{vm.image.base64 || vm.me.imageUrl}}" alt="profile image">
+                         <img class="profile-image" ng-if="!vm.me.imageUrl  && !vm.image.uploading" ng-src="{{vm.image.base64 || 'http://www.meganfox.com/wp-content/uploads/2014/01/5.jpg'}}" alt="">
+                         <div layout="row" layout-align="center center" flex="none">
+                              <div layout="column" layout-align="space-around" flex>
+                                   <md-button class="md-raised md-small" ng-disabled="vm.image.uploading">
+                                        Take photo
+                                   </md-button>
+                                   <md-button class="md-raised md-small" accept="image/*" ng-disabled="vm.image.uploading"
+                                              ngf-select="$file && vm.openCropModal($file)"
+                                              ng-model="image" name="file"
+                                              ngf-model-invalid="vm.errorFile"
+                                              ngf-validate="vm.imageValidationData">
+                                        Choose file
+                                   </md-button>
+                              </div>
+
+                         </div>
+                         <div layout="column" layout-align="center center" flex="none">
+                              <div layout="column" layout-align="end" flex="80">
+                                   <md-button class="md-raised md-primary md-small" ng-disabled="!vm.image.base64 || vm.image.uploading" ng-click="vm.image.base64 && vm.upload(vm.image)">
+                                        Upload
+                                   </md-button>
+                              </div>
+                         </div>
+                    </div>
+
+                    <ng-include src="'_'+vm.me.role+'.html'"></ng-include>
+
+                    <div layout="row" layout-align="end end" flex>
+                         <md-button ng-disabled="vm.isEqual(vm.origin, vm.me)" type="submit" class="md-raised md-primary update">
+                              Update
+                         </md-button>
+                    </div>
+               </form>
+          </div>
+
+     </md-whiteframe>
+</div>

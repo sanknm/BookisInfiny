@@ -1,0 +1,36 @@
+#sales-booth-pending {
+    .md-whiteframe-4dp {
+        .left {
+            img {
+                width: 100px;
+                height: 150px;
+            }
+            margin-right: 10px;
+        }
+        .time {
+            font-size: 11px;
+        }
+        .right {
+            .author {
+                font-size: 10px;
+                color:grey;
+            }
+            .fa-comment-o {
+                font-size: 22px;
+            }
+        }
+    }
+    dl {
+        font-size: 12px;
+        dt {
+            width: 85px;
+            font-weight: 500;
+        }
+        dd {
+            margin-left: 98px;
+        }
+    }
+    .approve, .decline {
+        min-width: 50px;
+    }
+}

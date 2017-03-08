@@ -1,0 +1,22 @@
+<div layout="column" flex="none" class="book-component">
+     <img class="book-image" ng-src="{{::vm.book.imageUrl}}" alt="book image">
+     <span class="book-name">{{::vm.book.title}}</span>
+     <div layout="row" layout-align="space-between center" flex="none" class="author-rating">
+          <span class="author-name">{{::vm.book.author}}</span>
+          <div ng-if="::vm.book.rating.avg">
+               {{::vm.book.rating.avg}} <i class="fa fa-star-o" aria-hidden="true"></i>
+          </div>
+     </div>
+     <div layout="row" layout-align="start center" flex="none">
+          <div>
+               <md-button class="md-primary md-raised book-panel-btn" ng-click="vm.click({book: vm.book})" ng-disabled="vm.user._id === vm.book.user">
+                    {{::vm.book.price | currency}}
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i></md-button>
+          </div>
+          <div layout="column" layout-align="start start" flex="none" class="book-details">
+               <div>18 more</div>
+               <div>from <span class="book-number">150</span> more</div>
+          </div>
+     </div>
+
+</div>

@@ -1,0 +1,35 @@
+.follow-item {
+    .follow-image {
+        cursor: pointer;
+        margin: 10px 0;
+        img {
+            @include profile-image(80px, 80px);
+        }
+    }
+    .follow-name {
+        margin-bottom: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .follow-address {
+        font-size: 12px;
+    }
+    .follow-info {
+        margin: 15px 0;
+        font-size: 13px;
+        .divider {
+            border-left: 1px solid rgba(0, 0, 0, 0.117647);
+            width: 1px;
+            height: 20px;
+            margin: 0 10px;
+        }
+        span {
+            margin-left: 5px;
+            font-size: 15px;
+            color: color(primary, base);
+        }
+    }
+    md-divider {
+        margin: 10px 0;
+    }
+}

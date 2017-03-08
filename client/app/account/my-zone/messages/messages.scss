@@ -1,0 +1,122 @@
+#messages {
+    textarea {
+        overflow: hidden;
+        height: 34px;
+        outline: none;
+        resize: none;
+        position: absolute;
+        bottom: 0;
+        top: auto;
+        max-height: 100px;
+        padding: 7px 50px 0 10px;
+        left: 0;
+    }
+    .input-wrapper {
+        padding: 15px;
+        margin: 15px;
+        position: relative;
+        .new-message-input {
+            border-radius: 25px;
+            padding-right: 50px;
+        }
+        .fa-paper-plane-o {
+            outline: none;
+            position: absolute;
+            right: 18px;
+            bottom: 6px;
+            font-size: 23px;
+            color: color(primary, base);
+        }
+    }
+
+    .top-row {
+        height: 50px;
+        border-bottom: 1px solid #E5E5E5;
+        padding: 0 15px;
+        .title {
+            font-size: 18px;
+        }
+    }
+    .messages {
+        padding: 0 50px;
+        height: calc(100vh - 235px);
+        .conversation-item {
+            .user-avatar {
+                img {
+                    @include profile-image(40px, 40px);
+                }
+            }
+            .conversation-content {
+                &.sent {
+                    margin-right: 10px;
+                    .conversation-text {
+                        background-color: #dcf8c6;
+                    }
+                }
+                &.notification {
+                    .conversation-text {
+                        background-color: rgba(225,245,254,0.92);
+                    }
+                }
+                &.received {
+                    margin-left: 10px;
+                }
+                //.conversation-text {
+                //    font-size: 12px;
+                //}
+                .time {
+                    margin-top: 4px;
+                    font-size: 10px;
+                    color: grey;
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+    .sidebar {
+        width: 280px;
+        md-content {
+            height: calc(100vh - 205px);
+        }
+        border-left: 1px solid #E5E5E5;
+        .search {
+            padding: 0 10px;
+            .search-input {
+            }
+            height: 50px;
+            border-bottom: 1px solid #E5E5E5;
+        }
+        .sidebar-item {
+            outline: none;
+            border-left: 2px solid white;
+            &.activeRight {
+                border-left: 2px solid color(primary, base);
+            }
+            & > div {
+                margin: 10px 5px;
+            }
+            .book-image {
+                img {
+                    @include profile-image(50px, 50px);
+                }
+                margin-right: 5px;
+            }
+            .message-text {
+                font-size: 11px;
+                color: grey;
+            }
+            .time {
+                font-size: 10px;
+                color: grey;
+                margin-left: 5px;
+            }
+            .item-title {
+                font-weight: 500;
+                margin-bottom: 3px;
+            }
+            .item-sub-title {
+                font-size: 13px;
+            }
+        }
+    }
+}

@@ -1,0 +1,57 @@
+<div class="navbar main-nav navbar-default navbar-static-top"
+     ng-class="{'transparent-nav': ('main'|isState) && !('reset'|isState) && !('verify'|isState) }">
+     <div class="container-fluid">
+          <div class="navbar-header">
+               <button class="navbar-toggle" type="button" ng-click="$ctrl.isCollapsed = !$ctrl.isCollapsed" ng-if="('main'|isState) || ('myzone' | includedByState)">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+               </button>
+               <a ui-sref="main" ng-if="!$ctrl.isMerchant() && !('main'|isState)" class="navbar-brand"><img src="/assets/images/banner.png" alt=""></a>
+               <a ng-if="$ctrl.isMerchant() && !('main'|isState)" class="navbar-brand merchant"><img src="/assets/images/banner.png" alt=""></a>
+          </div>
+          <div uib-collapse="$ctrl.isCollapsed" class="navbar-collapse collapse stroke" id="navbar-main">
+               <ul class="nav navbar-nav" ng-if="('main'|isState)">
+                    <li ng-repeat="item in $ctrl.menu" ui-sref-active="{{$ctrl.isLoggedIn() ? 'active': 'active-logged-out'}}" class="pointable">
+                         <a ng-if="item.state" ui-sref="{{item.state}}"><i class="{{item.icon}}" aria-hidden="true" ng-show="item.icon">&nbsp;&nbsp;</i>{{item.title}}</a>
+                         <a ng-if="!item.state"><i class="{{item.icon}}" aria-hidden="true" ng-show="item.icon">&nbsp;&nbsp;</i>{{item.title}}</a>
+                    </li>
+                    <li ng-show="$ctrl.isAdmin()" ui-sref-active="active"><a ui-sref="admin">Admin</a></li>
+               </ul>
+
+               <ul class="nav navbar-nav navbar-right">
+
+                    <li ng-if="!$ctrl.isMerchant() && (('main'|isState) || ('myzone' | includedByState))" ui-sref-active="active"><a ui-sref="sellbooks">Sell Books</a></li>
+                    <li ng-if="!$ctrl.isMerchant() && (('main'|isState) || ('myzone' | includedByState))" ui-sref-active="active"><a ui-sref="community"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;&nbsp;Community</a></li>
+                    <li ng-if="('main'|isState)"><a class="loginlink" ng-if="!$ctrl.isLoggedIn()" ng-click="$ctrl.openLogin()"><span>Login / register</span></a></li>
+                    <li ng-if="!$ctrl.isMerchant() && ((('main'|isState) || ('myzone' | includedByState)) && $ctrl.isLoggedIn())" ui-sref-active="active"><a ui-sref="myzone"><i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;My Zone</a></li>
+                    <li ng-if="!$ctrl.isMerchant() && (('myzone' | includedByState))" ui-sref-active="active"><a><i class="fa fa-bell-o" aria-hidden="true"></i></a></li>
+                    <li ng-if="!$ctrl.isMerchant() && (('main'|isState) || ('myzone' | includedByState))" ui-sref-active="active"><a><i class="fa fa-shopping-cart" aria-hidden="true"></i><span ng-if="!('main'|isState) && !('myzone' | includedByState)"> Shopping cart</span></a></li>
+                    <!--<li ng-show="$ctrl.isLoggedIn()"><p class="navbar-text">Hello {{ $ctrl.getCurrentUser().name }}</p> </li>-->
+               </ul>
+
+             <ul class="nav navbar-nav navbar-right" style="width: 25%;">
+
+               <li style="width: 100%;">
+                    
+                   <md-input-container md-theme="input" flex="" class="flex md-input-theme" style="
+                   width:100%;
+                   position: relative;
+              ">
+               <label for="input_001">&nbsp;</label>
+                    <input ng-model="search.who" class="ng-pristine ng-valid md-input ng-touched ng-empty ng-untouched" tabindex="0" id="input_001" aria-invalid="false" style=""><div class="md-errors-spacer"></div><div class="md-errors-spacer"></div>
+                    <div class="md-placeholder"></div>
+                    <button class="md-button md-default-theme" aria-label="Search" tabindex="0" style="
+              position: absolute;
+              right: -40px;
+              top: 2px;
+               ">
+               <i class="fa fa-search" style="color:#e58638"></i>
+                              </button>
+                    </md-input-container>
+                    </li>
+               </ul>
+          </div>
+     </div>
+</div>

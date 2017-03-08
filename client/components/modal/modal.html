@@ -1,0 +1,19 @@
+<div class="modal-header">
+     <div ng-if="modal.dismissable" class="modal-close-icon" layout="column" layout-align="center center" flex="none">
+          <md-icon ng-click="$dismiss($event)" flex
+                   md-svg-src="assets/svg/close.svg" aria-label="modal-close"></md-icon>
+     </div>
+
+     <!--<button ng-if="modal.dismissable" type="button" ng-click="$dismiss($event)" class="close">&times;</button>-->
+     <h4 ng-if="modal.title" ng-bind="modal.title" class="modal-title"></h4>
+     <p ng-if="modal.description" ng-bind="modal.description" class="modal-description"></p>
+</div>
+<div class="modal-body">
+     <p ng-if="modal.text" ng-bind="modal.text"></p>
+     <!--<div ng-if="modal.html" compile="modal.html"></div>-->
+     <div ng-if="modal.html" ng-include="modal.html"></div>
+</div>
+<!--<div class="modal-footer">-->
+     <!--<button ng-repeat="button in modal.buttons" ng-class="button.classes" ng-click="button.click($event)"-->
+             <!--ng-bind="button.text" class="btn"></button>-->
+<!--</div>-->

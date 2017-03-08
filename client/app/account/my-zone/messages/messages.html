@@ -1,0 +1,73 @@
+<div flex layout="row" id="messages">
+
+     <div flex>
+          <div layout="row" layout-align="space-between center" flex="none" class="top-row">
+               <div flex class="title">Messages</div>
+               <div flex="none">
+                    <md-button class="md-primary md-raised md-small mr0"
+                         ng-if="vm.me._id === vm.currentRequest.owner._id && ['pending', 'waiting'].indexOf(vm.currentRequest.status) >= 0"
+                         ng-click="vm[vm.currentRequest.status === 'pending' ? 'accept' : 'deliver']()"
+                    >{{vm.currentRequest.status === 'pending' ? 'Approve book request' : 'Mark as delivered'}}</md-button>
+                    <md-button class="md-primary md-raised md-small mr0">New Message</md-button>
+               </div>
+          </div>
+
+          <md-content layout="column" class="messages" layout-padding scroll-glue>
+               <div layout="row" ng-repeat="con in vm.conversation" class="conversation-item" flex="none">
+
+                    <div ng-if="con.type !== 'notification'" class="user-avatar" flex="none" layout="row" flex-order="{{vm.me._id === con.user._id ? 1 : 0}}">
+                         <img ng-src="{{::con.user.imageUrl}}" alt="profileImage"/>
+                    </div>
+
+                    <div layout="row" flex class="conversation-content" ng-class="con.type === 'notification' ? 'notification' : vm.me._id === con.user._id ? 'sent' : 'received'"
+                         layout-align="{{con.type === 'notification' ? 'center center' : vm.me._id === con.user._id ? 'end center' : 'start center'}}">
+                         <div layout="column">
+                              <md-whiteframe class="md-whiteframe-4dp conversation-text" layout-padding>
+                                   {{::con.message}}
+                              </md-whiteframe>
+                              <div layout="row" flex="none" layout-align="{{con.type === 'notification' ? 'start' : vm.me._id === con.user._id ? 'end' : 'start'}}">
+                                   <span class="time" am-time-ago="con.createdAt"></span>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </md-content>
+
+          <div class="input-wrapper">
+               <form name="form" ng-submit="vm.message && vm.sendRequestMessage()" novalidate>
+                    <textarea rows="1" msd-elastic class="form-control" ng-model="vm.message" placeholder="Write a message..."></textarea>
+                    <i class="fa fa-paper-plane-o" aria-hidden="true" ng-click="vm.message && vm.sendRequestMessage()"></i>
+               </form>
+          </div>
+     </div>
+
+     <div flex="none" class="sidebar" layout="column">
+          <div class="search" layout="column" layout-align="center center" flex="none">
+               <input type="text" class="form-control search-input" placeholder="Search here" ng-model="vm.search">
+          </div>
+          <md-content>
+               <div ng-repeat="request in vm.requests | filter: vm.search | orderBy:'updatedAt':true track by request._id" class="sidebar-item" layout="column"
+                    ng-click="vm.getConversation(request)"
+                    ng-class="{'activeRight': request._id === vm.currentRequest._id}">
+                    <div layout="row" flex="none" layout-align="start center">
+                         <div flex="none" class="book-image">
+                              <img ng-if="vm.me._id === request.owner._id" ng-src="{{::request.user.imageUrl}}" alt="">
+                              <img ng-if="vm.me._id !== request.owner._id" ng-src="{{::request.owner.imageUrl}}" alt="">
+                         </div>
+                         <div flex layout="column">
+                              <md-truncate class="item-title">{{::(request.user.firstName + ' ' + request.user.lastName)}}</md-truncate>
+                              <md-truncate class="item-sub-title">{{::request.book.title}}</md-truncate>
+                              <div layout="row">
+                                   <md-truncate flex class="message-text">{{request.message}}</md-truncate>
+                                   <span flex="none" class="time" am-time-ago="request.updatedAt"></span>
+                              </div>
+
+                         </div>
+                    </div>
+                    <md-divider></md-divider>
+               </div>
+          </md-content>
+
+     </div>
+
+</div>

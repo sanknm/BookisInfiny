@@ -1,0 +1,80 @@
+<div layout="column" class="request-book-modal">
+     <div layout="row" layout-align="space-between" flex="none" ng-if="modal.request.showUserPartial">
+          <div class="user-image" flex="none">
+               <img ng-src="{{::modal.request.book.user.imageUrl}}" alt="user image">
+          </div>
+          <div layout="column" flex>
+               <div layout="row" layout-align="space-around">
+                    <div flex="40">
+                         <h4>{{::(modal.request.book.user.firstName + ' ' + modal.request.book.user.lastName)}}</h4>
+                         <div class="info">
+                              <span ng-if="modal.request.book.user.address.coordinates.length">{{::(modal.request.book.user.address.city + ', ' + modal.request.book.user.address.country)}}</span>
+                              <span ng-if="!modal.request.book.user.address.coordinates.length">Location not available</span>
+                         </div>
+                         <div class="info">Member since {{::modal.request.book.user.createdAt | date: 'dd MMM, yyyy'}}</div>
+                         <div class="about">{{::modal.request.book.user.about}}</div>
+                    </div>
+                    <div flex="55">
+                         <div class="map-wrapper" layout="column" layout-align="center center">
+                              <div style="color:white" ng-if="!modal.request.book.user.address.coordinates[0]">
+                                   Location not available
+                              </div>
+                              <ui-gmap-google-map
+                                   ng-if="modal.request.book.user.address.coordinates[0]"
+                                   center="modal.request.book.user.address.coordinates"
+                                   zoom="13" options="modal.options.mapOptions">
+                                   <ui-gmap-marker coords="modal.request.book.user.address.coordinates"
+                                                   options="modal.options.markerOptions" idkey="0">
+                                   </ui-gmap-marker>
+                              </ui-gmap-google-map>
+                         </div>
+
+                    </div>
+               </div>
+               <div layout="row" layout-align="space-between" class="other-info">
+                    <div flex="none">
+                         <p>Seller Rating (120)</p>
+                         <span class="number">4.3</span>/5
+                         <i class="fa fa-star"></i>
+                    </div>
+                    <div flex="40">
+                         <p>Availability on request</p>
+                         <uib-progressbar flex max="100" value="97"><span style="color:white; white-space:nowrap;">97%</span></uib-progressbar>
+                    </div>
+                    <div  flex="none">
+                         <p>Expected response time</p>
+                         <div> < 2 hours</div>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <md-divider ng-if="modal.request.showUserPartial"></md-divider>
+     <div class="book-parital" layout="row">
+          <div class="book-image">
+               <img ng-src="{{::modal.request.book.imageUrl}}" alt="user image">
+          </div>
+          <div class="book-details" layout="column">
+               <div layout="row" layout-align="start center">
+                    <div class="title">{{::modal.request.book.title}}</div>
+                    <span class="year">&nbsp;({{::modal.request.book.year}})</span>
+               </div>
+               <div class="author">By {{::modal.request.book.author}}</div>
+               <div class="condition" layout="row" layout-align="space-between">
+                    <span>{{::modal.request.book.condition}}</span>
+                    <span>{{::modal.request.book.format}}</span>
+               </div>
+               <div class="price">{{::modal.request.book.price | currency}}</div>
+          </div>
+     </div>
+     <h5>How would you like it to be delivered?</h5>
+     <md-radio-group ng-model="modal.request.delivery" layout="row">
+          <md-radio-button value="shipping" class="md-primary">Shipping</md-radio-button>
+          <md-radio-button value="delivery" class="md-primary">Delivery</md-radio-button>
+     </md-radio-group>
+     <h5>Message</h5>
+     <textarea id="message" cols="20" rows="4" class="form-control" ng-disabled="!modal.request.delivery" ng-model="modal.request.message" placeholder="Type your message here..."></textarea>
+     <div layout="row" layout-align="end end" flex="none">
+          <md-button class="md-primary md-raised mr0" ng-disabled="!modal.request.delivery" ng-click="modal.confirm()">Request</md-button>
+     </div>
+
+</div>

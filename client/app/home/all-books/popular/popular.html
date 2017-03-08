@@ -1,0 +1,45 @@
+<div class="popular-view" layout-padding layout="column" flex="none">
+
+     <md-whiteframe class="md-whiteframe-4dp" layout="column" flex="none" layout-padding>
+          <div layout="row" layout-align="space-between center" flex="none" class="title">
+               <h5 flex="none">Popular books</h5>
+               <a href="">View all ></a>
+          </div>
+
+          <bookis-slick settings="vm.slickConfig" responsive="vm.breakpoints" ng-if="vm.books.length" flex="none">
+               <div ng-repeat="b in vm.books">
+                    <book-panel ui-sref="allbooks.details({id: b._id})" book="b" layout="column" layout-align="center center" flex="none" user="vm.me"></book-panel>
+               </div>
+          </bookis-slick>
+     </md-whiteframe>
+
+     <br>
+
+     <md-whiteframe class="md-whiteframe-4dp" layout="column" flex="none" layout-padding>
+          <div layout="row" layout-align="space-between center" flex="none" class="title">
+               <h5 flex="none">Recommended books</h5>
+               <a href="">View all ></a>
+          </div>
+          <bookis-slick settings="vm.slickConfig" responsive="vm.breakpoints" ng-if="vm.books.length" flex="none">
+               <div ng-repeat="b in vm.books.slice().reverse()">
+                    <book-panel book="b" layout="column" layout-align="center center" flex="none" user="vm.me"></book-panel>
+               </div>
+          </bookis-slick>
+     </md-whiteframe>
+
+     <md-whiteframe class="md-whiteframe-4dp" layout="column" flex="none" layout-padding>
+          <div layout="row" layout-align="space-between center" flex="none" class="title">
+               <h5 flex="none">Genres</h5>
+               <a href="">View all ></a>
+          </div>
+          <bookis-slick settings="vm.slickConfig" responsive="vm.breakpoints" ng-if="vm.genres.length" flex="none">
+               <div ng-repeat="genre in vm.genres" layout="column" layout-align="center center" flex="none">
+                    <div layout="column" flex="none" layout-align="center center" >
+                         <img height="170" width="170" ng-src="{{::genre.imageUrl}}" alt="genre image">
+                         <div>{{::genre.name}}</div>
+                    </div>
+               </div>
+          </bookis-slick>
+     </md-whiteframe>
+
+</div>

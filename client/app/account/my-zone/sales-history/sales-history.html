@@ -1,0 +1,61 @@
+<div layout-padding id="sales-history">
+     <div layout="row" layout-align="center center" flex="none" flex-gt-sm="75" class="chart-year">
+          <div layout>
+               <md-icon md-svg-src="assets/svg/chevron-left.svg" aria-label="previous" ng-click="vm.refreshChart('-')"></md-icon>
+               <div class="year">{{vm.currentYear}}</div>
+               <md-icon md-svg-src="assets/svg/chevron-right.svg" aria-label="next" ng-click="vm.refreshChart('+')"></md-icon>
+          </div>
+     </div>
+     <div layout-gt-sm="row" layout="column" flex="none" layout-align="space-between" layout-padding>
+          <div layout="column" flex-gt-sm="75">
+               <bookis-chart data="vm.data"></bookis-chart>
+          </div>
+          <div layout-gt-sm="column" layout="row" flex-gt-sm="20" layout-align="space-between" layout-padding>
+               <md-whiteframe class="md-whiteframe-4dp book-panel" layout="column" flex-gt-sm="45" flex layout-align="center center">
+                    <div class="number">{{vm.requests.length}}</div>
+                    <div class="sub">Total number of books sold</div>
+               </md-whiteframe>
+               <md-whiteframe class="md-whiteframe-4dp book-panel" layout="column" flex-gt-sm="45" flex layout-align="center center">
+                    <div class="number">{{vm.totalAmount() | currency}}</div>
+                    <div class="sub">Total amount earned</div>
+               </md-whiteframe>
+          </div>
+     </div>
+
+     <div>
+          <h5>Sold books</h5>
+          <md-whiteframe class="md-whiteframe-4dp" layout="column" flex>
+               <table class="table table-condensed table-hover">
+                    <thead>
+                    <tr>
+                         <th width="35%">Title</th>
+                         <th width="15%">Order Number</th>
+                         <th width="10%">Date</th>
+                         <th width="10%">Price</th>
+                         <th width="10%">My Rating</th>
+                         <th width="20%">Sold To</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="request in vm.requests track by request._id" ng-class="{'not-seen' : !request.seen.user}">
+                         <td layout="row" layout-align="start center" flex="none" class="title">
+                              <img width="30" height="55" flex="none" ng-src="{{::request.book.imageUrl}}" alt="book image">
+                              <div layout="column" flex>
+                                   <div class="book-name">{{::request.book.title}}</div>
+                                   <div class="book-author">{{::request.book.author}}</div>
+                              </div>
+                         </td>
+                         <td>
+                              <div>{{::request._id}}</div>
+                         </td>
+                         <td>{{::request.createdAt | date:'MM/dd/yyyy'}}</td>
+                         <td>{{::request.book.price | currency}}</td>
+                         <td>{{::request.book.rating.ownerRate || 'Not rated'}}</td>
+                         <td>{{::(request.user.firstName + ' ' + request.user.lastName)}}</td>
+                    </tr>
+                    </tbody>
+               </table>
+          </md-whiteframe>
+     </div>
+
+</div>

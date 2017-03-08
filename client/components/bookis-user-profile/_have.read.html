@@ -1,0 +1,8 @@
+<div layout="row" layout-wrap ng-if="vm.bookshelf.length">
+     <div ng-repeat="book in vm.bookshelf track by book._id" flex="25">
+          <book-panel book="book.book" layout="column" layout-align="center center"></book-panel>
+     </div>
+</div>
+<div ng-if="!vm.bookshelf.length">
+     User have no read books
+</div>

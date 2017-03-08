@@ -1,0 +1,78 @@
+<div class="row login">
+     <div class="col-sm-12">
+          <form class="form" name="form" ng-submit="form.$valid && (modal[modal.data.states.forgot ? 'reset': 'submit']())" novalidate>
+
+               <div layout="row" layout-wrap ng-if="modal.data.local">
+                    <a ng-click="modal.submit('test@bookis.com','test')">test</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a ng-click="modal.submit('marco@polo.com', 'marco')">marco</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a ng-click="modal.submit('daniel@suba.com','daniel')">suba</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a ng-click="modal.submit('cpn@support.com','aaa')">merchant</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a ng-click="modal.submit('admin@bookis.com','admin')">admin</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+               </div>
+
+               <div class="form-group">
+                    <label for="email">{{modal.data.states.forgot ? 'Send reset link to this email:' : 'Email'}}</label>
+                    <input type="email" id="email" name="email" class="form-control" ng-model="modal.data.user.email" required>
+               </div>
+
+               <div class="form-group" ng-if="!modal.data.states.forgot">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" ng-model="modal.data.user.password" required>
+               </div>
+
+               <div class="form-group has-error">
+                    <p class="help-block" ng-show="form.email.$error.required && form.password.$error.required && form.$submitted">
+                         Please enter your email and password.
+                    </p>
+                    <p class="help-block" ng-show="form.email.$error.email && form.$submitted">
+                         Please enter a valid email.
+                    </p>
+
+                    <p class="help-block" ng-if="modal.data.errors.reset">
+                         <span>
+                              {{modal.data.errors.reset}}
+                         </span>
+                         <span ng-if="modal.data.states.offerResendVerification">
+                              <a ng-click="modal.resend(modal.data.user.email)">Resend</a> verification email.
+                         </span>
+                    </p>
+
+                    <p class="help-block" ng-show="!modal.data.states.forgot && modal.data.errors.login">{{ modal.data.errors.login }}</p>
+               </div>
+
+               <div class="form-group has-success">
+                    <div class="success-block" layout="row" layout-align="start center" flex="none" ng-if="value" ng-repeat="(key, value) in modal.data.notifications track by $index">
+                         <md-icon flex="none" md-svg-src="assets/svg/check.svg" aria-label="next"></md-icon>
+                         <span flex>{{value}}</span>
+                    </div>
+               </div>
+
+               <div layout="row" class="forgot" layout-align="{{modal.data.states.forgot ? 'end center' : 'space-between center'}}" flex="none">
+                    <md-switch ng-model="modal.data.user.remember" aria-label="remember" ng-if="!modal.data.states.forgot">
+                         <span>Remember me</span>
+                    </md-switch>
+                    <a ng-click="modal.data.states.forgot = !modal.data.states.forgot;modal.clean()">{{ modal.data.states.forgot ? 'I Remember' : 'Forgot password?' }}</a>
+               </div>
+
+               <div layout="column" flex="none">
+                    <md-button class="md-primary md-raised" type="submit" ng-disabled="modal.data.states.reset || modal.data.states.resend">
+                         <span layout="row" layout-align="center center" flex="none">
+                              <md-progress-circular ng-if="modal.data.states.reset || modal.data.states.resend" md-diameter="16" md-mode="indeterminate"></md-progress-circular>
+                              {{ !modal.data.states.forgot ? 'Sign in' : modal.data.states.reset ? 'Sending reset email' : modal.data.states.resend ? 'Resending verification email' : 'Reset my password'}}
+                         </span>
+                    </md-button>
+               </div>
+
+          </form>
+
+          <p class="other"><span>Or login with</span></p>
+          <oauth-buttons layout="row" layout-align="space-between center"></oauth-buttons>
+
+
+          <hr>
+          <div>Don't have an account?</div>
+          <a ng-click="modal.toggle()">- User registration</a><br>
+          <a ng-click="modal.toggle('merchant')">- Merchant registration</a>
+
+     </div>
+</div>

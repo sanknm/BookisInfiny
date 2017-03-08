@@ -1,0 +1,49 @@
+md-tabs.sales-booth-nav {
+    box-shadow: 0 4px 20px -6px grey;
+    .badge {
+        background-color: color(primary, base);
+        position: relative;
+        bottom: 2px;
+    }
+}
+.unseen-number {
+    position: relative;
+    right: 2px;
+    bottom: 8px;
+    font-size: 10px;
+}
+#sales-booth-views {
+    md-whiteframe {
+        & > div {
+            transition: all .5s ease-in;
+            &.not-seen {
+                opacity: 0;
+            }
+        }
+    }
+
+    .search-wrapper {
+        height: 70px;
+        .book-search {
+            position: relative;
+            input {
+                box-shadow: 0 4px 20px -6px grey;
+            }
+            md-icon {
+                position: absolute;
+                outline: none;
+                right: 5px;
+                top: calc(50% - 12px);
+            }
+        }
+    }
+
+}
+.book-conditions {
+    h4 {
+        color: color(primary, base);
+    }
+    span {
+        font-weight: 700;
+    }
+}

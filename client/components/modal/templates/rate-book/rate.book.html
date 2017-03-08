@@ -1,0 +1,21 @@
+<div class="rate-book-modal" layout="column">
+     <div layout="row">
+          <div class="book-image" flex="none">
+               <img ng-src="{{::modal.data.book.imageUrl}}" alt="">
+          </div>
+          <div class="book-details" flex layout="column" layout-align="center start">
+               <div class="title">{{::modal.data.book.title}}</div>
+               <div class="author">{{::modal.data.book.author}}</div>
+          </div>
+     </div>
+     <h5>Your rating</h5>
+     <bookis-rating rating="modal.data.rate" click="modal.updateRating({rating})"></bookis-rating>
+     <div layout="column" ng-if="modal.data.resolved && !modal.data.alreadyReviewed.length">
+          <h5>Your review</h5>
+          <textarea id="review" cols="20" rows="3" class="form-control" ng-model="modal.data.review" placeholder="Type your review here..."></textarea>
+     </div>
+     <div layout="row" layout-align="end end" flex="none">
+          <md-button class="md-raised md-small" ng-disabled="!modal.data.rate" ng-click="modal.confirm()">Submit</md-button>
+          <md-button class="md-raised md-primary md-small mr0" ng-disabled="!modal.data.rate" ng-click="modal.confirm()">Submit & Share</md-button>
+     </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="row signup">
+     <div class="col-sm-12">
+          <oauth-buttons layout="row" layout-align="space-between center"></oauth-buttons>
+          <p class="other"><span>Or register using your email</span></p>
+          <form class="form" name="form" ng-submit="form.$valid && modal.submit(form)" novalidate>
+
+               <!--<pre style="font-size:8px;">{{ modal.errors | json }}</pre>-->
+               <!--<pre style="font-size:8px;">{{ form.email.$error | json }}</pre>-->
+
+               <div class="row">
+                    <div class="col-sm-6">
+                         <div class="form-group" ng-class="{ 'has-success': form.firstName.$valid && form.$submitted, 'has-error': form.firstName.$invalid && form.$submitted }">
+                              <label for="firstName">First name</label>
+                              <input type="text" id="firstName" name="firstName" class="form-control" ng-model="modal.user.firstName" required/>
+                              <p class="help-block" ng-show="form.firstName.$error.required && form.$submitted">
+                                   A first name is required
+                              </p>
+                         </div>
+                    </div>
+                    <div class="col-sm-6">
+                         <div class="form-group" ng-class="{ 'has-success': form.lastName.$valid && form.$submitted, 'has-error': form.lastName.$invalid && form.$submitted }">
+                              <label for="lastName">Last name</label>
+                              <input type="text" id="lastName" name="lastName" class="form-control" ng-model="modal.user.lastName" required/>
+                              <p class="help-block" ng-show="form.lastName.$error.required && form.$submitted">
+                                   A last name is required
+                              </p>
+                         </div>
+                    </div>
+               </div>
+
+               <div class="form-group" ng-class="{ 'has-success': form.email.$valid && form.$submitted, 'has-error': form.email.$invalid && form.$submitted }">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" ng-model="modal.user.email" required mongoose-error/>
+                    <p class="help-block" ng-show="form.email.$error.email && form.$submitted">
+                         Doesn't look like a valid email.
+                    </p>
+                    <p class="help-block" ng-show="form.email.$error.required && form.$submitted">
+                         What's your email address?
+                    </p>
+                    <p class="help-block" ng-show="form.email.$error.mongoose">
+                         {{ modal.errors.email }}
+                    </p>
+               </div>
+
+               <div class="form-group" ng-class="{ 'has-success': form.password.$valid && form.$submitted, 'has-error': form.password.$invalid && form.$submitted }">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" ng-model="modal.user.password" ng-minlength="3" required mongoose-error/>
+                    <p class="help-block" ng-show="(form.password.$error.minlength || form.password.$error.required) && form.$submitted">
+                         Password must be at least 3 characters.
+                    </p>
+                    <p class="help-block" ng-show="form.password.$error.mongoose">
+                         {{ modal.errors.password }}
+                    </p>
+               </div>
+
+               <div class="form-group" ng-class="{ 'has-success': form.confirmPassword.$valid && form.$submitted, 'has-error': form.confirmPassword.$invalid && form.$submitted }">
+                    <label for="confirm">Confirm Password</label>
+                    <input type="password" id="confirm" name="confirmPassword" class="form-control" ng-model="modal.user.confirmPassword" match="modal.user.password" ng-minlength="3" required/>
+                    <p class="help-block" ng-show="form.confirmPassword.$error.match && form.$submitted">
+                         Passwords must match.
+                    </p>
+               </div>
+
+               <md-checkbox ng-model="agreed" aria-label="agreements">
+                    By checking this, I agree to the <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a>
+               </md-checkbox>
+
+               <div layout="column" flex="none">
+                    <md-button ng-disabled="!agreed" class="md-primary md-raised" type="submit">
+                         Sign up
+                    </md-button>
+               </div>
+
+
+          </form>
+
+          <hr>
+          Already have an account? <a ng-click="modal.toggle()">Sign in</a> using your email
+
+     </div>
+</div>

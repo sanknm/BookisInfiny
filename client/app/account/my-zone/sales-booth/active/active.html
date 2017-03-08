@@ -1,0 +1,53 @@
+<div layout-padding id="sales-booth-active">
+     <div layout="row" layout-align="start center" flex="none" class="search-wrapper">
+          <div flex="none" class="buttons">
+               <md-button class="md-primary md-raised" ng-click="vm.sellBook()">Sell Book</md-button>
+               <md-button ng-if="vm.me.role === 'merchant'" class="md-primary md-raised" ng-click="vm.bulkSell()">Add many books for sale</md-button>
+          </div>
+          <div flex class="book-search">
+               <md-icon ng-if="!vm.searchText" md-svg-src="assets/svg/search.svg" aria-label="search"></md-icon>
+               <md-icon ng-if="vm.searchText" ng-click="vm.searchText=''" md-svg-src="assets/svg/close.svg" aria-label="search"></md-icon>
+               <input type="text" class="form-control" placeholder="Search your books" ng-model="vm.searchText">
+          </div>
+     </div>
+     <md-whiteframe class="md-whiteframe-4dp" layout="column" flex>
+
+          <table class="table table-condensed table-hover">
+               <thead>
+               <tr>
+                    <th width="30%">Title</th>
+                    <th width="10%">Date Added</th>
+                    <th width="10%">Price</th>
+                    <th width="10%">Rating</th>
+                    <th width="10%">My Rating</th>
+                    <th width="10%">Condition</th>
+                    <th width="19%">Actions</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr ng-repeat="book in vm.books track by book._id | filter: vm.searchText">
+                    <td layout="row" layout-align="start center" flex="none" class="title">
+                         <img width="30" height="55" flex="none" ng-src="{{book.imageUrl}}" alt="book image">
+                         <div layout="column" flex>
+                              <div class="book-name">{{book.title}}</div>
+                              <div class="book-author">{{book.author}}</div>
+                         </div>
+
+                    </td>
+                    <td>
+                         <div>{{::book.createdAt | date:'MM/dd/yyyy'}}</div>
+                    </td>
+                    <td>{{book.price | currency}}</td>
+                    <td><span class="rate-number">{{book.rating.avg | number:1}}</span><i class="fa fa-star-o" aria-hidden="true"></i></td>
+                    <td><span class="rate-number"><span ng-if="book.rating.ownerRate">{{book.rating.ownerRate}}</span></span><i class="fa" ng-class="book.rating.ownerRate ? 'fa-star' : 'fa-star-o'" aria-hidden="true" ng-click="vm.rateBook(book)"></i></td>
+                    <td>{{book.condition || 'Good'}}</td>
+                    <td>
+                         <md-button class="md-raised md-small edit" ng-click="vm.editBook(book)" ng-disabled="book.status === 'requested'">Edit</md-button>
+                         <md-button class="md-raised md-small remove" ng-click="vm.remove(book)" ng-disabled="book.status === 'requested'">Remove</md-button>
+                    </td>
+               </tr>
+               </tbody>
+          </table>
+
+     </md-whiteframe>
+</div>

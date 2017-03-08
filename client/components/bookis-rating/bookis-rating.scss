@@ -1,0 +1,12 @@
+.bookis-rating {
+    i {
+        outline: none;
+        margin-right: 8px;
+        &.disabled {
+            cursor: not-allowed;
+            opacity: .7;
+        }
+        font-size: 25px;
+        color: grey;
+    }
+}

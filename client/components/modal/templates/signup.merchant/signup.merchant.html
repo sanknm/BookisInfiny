@@ -1,0 +1,115 @@
+<div class="row signup-merchant">
+     <div class="col-sm-12">
+          <form class="form" name="form" ng-submit="form.$valid && modal.submit(form)" novalidate>
+
+               <div class="form-group" ng-class="{ 'has-success': form.businessName.$valid && form.$submitted, 'has-error': form.businessName.$invalid && form.$submitted }">
+                    <input type="text" id="businessName" name="businessName" class="form-control" placeholder="Your business name" ng-model="modal.user.businessName" required/>
+                    <p class="help-block" ng-show="form.businessName.$error.required && form.$submitted">
+                         A business name is required
+                    </p>
+               </div>
+
+               <div class="form-group">
+                    <input id="autoComplete" type="text" class="form-control" placeholder="Autocomplete your address" ng-model="autoComplete" address="modal.user.address" googleplace/>
+               </div>
+
+               <div layout="row">
+                    <div flex="50" class="address-completed">
+                         <div class="form-group">
+                              <input id="streetAddress" type="text" name="streetAddress" class="form-control" placeholder="Business address" ng-model="modal.user.address.streetAddress" ng-disabled="true" required/>
+                         </div>
+
+                         <div class="row">
+                              <div class="col-sm-6">
+                                   <div class="form-group">
+                                        <input id="streetNumeric" type="text" name="streetNumeric" class="form-control" placeholder="City"  ng-model="modal.user.address.city" ng-disabled="true" required/>
+                                   </div>
+                              </div>
+                              <div class="col-sm-6">
+                                   <div class="form-group">
+                                        <input id="zipCode" type="text" name="zipCode" class="form-control" placeholder="Zip"  ng-model="modal.user.address.zip" ng-disabled="true" required/>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div flex="50">
+                         <div class="map-wrapper">
+                              <ui-gmap-google-map ng-if="modal.user.address.coordinates[0]" center="modal.user.address.coordinates" zoom="15" draggable="true" options="vm.mapOptions">
+                                   <ui-gmap-marker coords="modal.user.address.coordinates" options="vm.marker.options" idkey="0">
+                                   </ui-gmap-marker>
+                              </ui-gmap-google-map>
+                         </div>
+                    </div>
+
+               </div>
+
+               <div class="row">
+                    <div class="col-sm-6">
+                         <div class="form-group" ng-class="{ 'has-success': form.email.$valid && form.$submitted, 'has-error': form.email.$invalid && form.$submitted }">
+                              <input type="email" id="email" name="email" placeholder="Business email" class="form-control" ng-model="modal.user.email" required mongoose-error/>
+                              <p class="help-block" ng-show="form.email.$error.email && form.$submitted">
+                                   Doesn't look like a valid email.
+                              </p>
+                              <p class="help-block" ng-show="form.email.$error.required && form.$submitted">
+                                   What's your email address?
+                              </p>
+                              <p class="help-block" ng-show="form.email.$error.mongoose">
+                                   {{ modal.errors.email }}
+                              </p>
+                         </div>
+                    </div>
+                    <div class="col-sm-6">
+                         <div class="form-group" ng-class="{ 'has-success': form.phone.$valid && form.$submitted, 'has-error': form.phone.$invalid && form.$submitted }">
+                              <input type="text" name="phone" placeholder="Business phone" class="form-control" ng-model="modal.user.phone" allowed-chars="[^0-9]" required/>
+                              <p class="help-block" ng-show="form.phone.$error.required && form.$submitted">
+                                   Phone is required
+                              </p>
+                         </div>
+                    </div>
+               </div>
+
+               <div class="row">
+                    <div class="col-sm-6">
+                         <div class="form-group" ng-class="{ 'has-success': form.password.$valid && form.$submitted, 'has-error': form.password.$invalid && form.$submitted }">
+                              <input type="password" placeholder="Password" id="password" name="password" class="form-control" ng-model="modal.user.password" ng-minlength="3" required mongoose-error/>
+                              <p class="help-block" ng-show="(form.password.$error.minlength || form.password.$error.required) && form.$submitted">
+                                   Password must be at least 3 characters.
+                              </p>
+                              <p class="help-block" ng-show="form.password.$error.mongoose">
+                                   {{ modal.errors.password }}
+                              </p>
+                         </div>
+                    </div>
+                    <div class="col-sm-6">
+                         <div class="form-group" ng-class="{ 'has-success': form.confirmPassword.$valid && form.$submitted, 'has-error': form.confirmPassword.$invalid && form.$submitted }">
+                              <input type="password" placeholder="Confirm password" id="confirm" name="confirmPassword" class="form-control" ng-model="modal.user.confirmPassword" match="modal.user.password" ng-minlength="3" required/>
+                              <p class="help-block" ng-show="form.confirmPassword.$error.match && form.$submitted">
+                                   Passwords must match.
+                              </p>
+                         </div>
+                    </div>
+               </div>
+
+
+
+
+
+
+               <md-checkbox ng-model="agreed" aria-label="agreements">
+                    By checking this, I agree to the <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a>
+               </md-checkbox>
+
+               <div layout="column" flex="none">
+                    <md-button ng-disabled="!agreed" class="md-primary md-raised" type="submit">
+                         Sign up
+                    </md-button>
+               </div>
+
+
+          </form>
+
+          <hr>
+          Already have an account? <a ng-click="modal.toggle()">Sign in</a> using your email
+
+     </div>
+</div>

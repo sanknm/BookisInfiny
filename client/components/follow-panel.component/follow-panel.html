@@ -1,0 +1,30 @@
+<div layout="column" layout-align="center" flex class="follow-item">
+     <div layout="row" layout-align="center center" flex="none" ui-sref="community.user({id: vm.data._id})">
+          <div flex="none" class="follow-image">
+               <img ng-src="{{::vm.data.imageUrl}}" alt="user image">
+          </div>
+     </div>
+
+     <div layout="row" layout-align="center center" flex="none" ui-sref="community.user({id: vm.data._id})">
+          <div class="follow-name">{{::(vm.data.firstName + ' ' + vm.data.lastName)}}</div>
+     </div>
+
+     <div layout="row" layout-align="center center" flex="none">
+          <div class="follow-address" ng-if="vm.data.address.streetAddress">{{::(vm.data.address.streetAddress + ', ' + vm.data.address.city)}}</div>
+          <div class="follow-address" ng-if="!vm.data.address.streetAddress">Location not available</div>
+     </div>
+
+     <div layout="row" layout-align="center center" flex="none" class="follow-info">
+          <div flex="none">Followers <span>{{::vm.data.numeric.followers || 0}}</span></div>
+          <div class="divider"></div>
+          <div flex="none">Following <span>{{::vm.data.numeric.following || 0}}</span></div>
+     </div>
+
+     <md-divider flex></md-divider>
+
+     <div layout="row" flex="none" layout-align="center">
+          <md-button class="md-raised md-small" ng-if="!!vm.unfollow && vm.controls" ng-click="vm.unfollow({_id: vm.data._id})">Unfollow</md-button>
+          <md-button class="md-raised md-small" ng-if="!!vm.follow && !vm.alreadyFollowing && vm.controls" ng-click="vm.followUser(vm.data._id)">Follow</md-button>
+          <md-button class="md-raised md-small md-primary">Message</md-button>
+     </div>
+</div>

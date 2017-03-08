@@ -1,0 +1,66 @@
+.modal-primary,
+.modal-info,
+.modal-success,
+.modal-warning,
+.modal-danger {
+    .modal-header {
+        color: #fff;
+        border-radius: 5px 5px 0 0;
+    }
+}
+
+//custom class
+.center-modal {
+    padding-top: 130px;
+}
+
+.modal-close-icon {
+    width: 35px;
+    height: 35px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    md-icon {
+        outline: none;
+        fill: black;
+    }
+    position: absolute;
+    right: -13px;
+    top: -13px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+//global override
+.modal-sm {
+    width: 400px;
+}
+
+.modal-description {
+    font-size: 12px;
+    margin-top: 10px;
+    color: grey;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.modal-primary .modal-header {
+    background: $brand-primary;
+}
+
+.modal-info .modal-header {
+    background: $brand-info;
+}
+
+.modal-success .modal-header {
+    background: $brand-success;
+}
+
+.modal-warning .modal-header {
+    background: $brand-warning;
+}
+
+.modal-danger .modal-header {
+    background: $brand-danger;
+}

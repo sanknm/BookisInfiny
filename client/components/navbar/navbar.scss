@@ -1,0 +1,101 @@
+navbar {
+    .navbar {
+        margin-bottom: 0;
+            /*box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.49);*/
+    }
+    .navbar-brand {
+        img {
+            height: 40px;
+            margin-left: 10%;
+        }
+        &.merchant {
+            position: absolute;
+            left: calc(50% - 57px);
+        }
+    }
+    .active {
+        a {
+            color: color(primary, base) !important;
+            background-color: white !important;
+        }
+    }
+    .navbar-default {
+        background-color: white;
+        #navbar-main {
+            @include nav-hover(grey, darken(grey, 50%));
+        }
+    }
+    .transparent-nav {
+        border-color: transparent;
+        background-color: transparent;
+        position: absolute;
+        width: 100%;
+
+        #navbar-main {
+            @include nav-hover(white, darken(white, 50%));
+        }
+    }
+    #navbar-main {
+        overflow:hidden;
+    }
+    .main-nav {
+        min-height: 70px;
+    }
+    .navbar-nav {
+        padding-top: 10px;
+        li {
+            a {
+                
+            }
+        }
+    }
+    .navbar-right {
+        font-family:apercu_light_pro_95;
+        text-transform: uppercase;
+
+    }
+    .navbar-default #navbar-main ul li a {
+        font-weight:normal !important;
+        margin: 0px 10px;
+    }
+    .fa-shopping-cart {
+        font-size:25px;
+        margin-top: -2px;
+    }
+    .fa-bell-o {
+        font-size:23px;
+        margin-top: -2px;
+    }
+
+    .navbar-toggle {
+        margin-top:18px;
+    }
+
+    md-input-container {
+        margin:0px 0px;
+        padding-top:10px;
+    }
+    .md-input-focused .md-input 
+    {
+        border-color:#e58638 !important;
+    }
+
+    @media screen and (min-width: 1024px)
+    {
+        .md-input-theme {
+                display:block;
+        }   
+    }
+
+    @media screen and (max-width: 1024px)
+    {
+        .md-input-theme {
+                display:none;
+        }   
+    }
+
+    button.md-default-theme:not([disabled]):hover, .md-button:not([disabled]):hover 
+    {
+        background-color: white; 
+    }
+}

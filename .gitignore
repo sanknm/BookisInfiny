@@ -1,0 +1,15 @@
+node_modules
+uploads
+public
+.tmp
+.sass-cache
+.idea
+client/bower_components
+client/index.html
+client/touch.js
+client/touch.txt
+dist
+/server/config/local.env.js
+npm-debug.log
+coverage
+.elasticbeanstalk/

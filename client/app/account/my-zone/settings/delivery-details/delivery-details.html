@@ -1,0 +1,109 @@
+<div layout-padding id="delivery-details">
+
+     <!--<div layout="row" layout-align="" flex="">-->
+          <!--<pre style="font-size:8px;">{{ vm.me | json }}</pre>-->
+          <!--<pre style="font-size:8px;">{{ vm.origin | json }}</pre>-->
+     <!--</div>-->
+
+     <md-whiteframe class="md-whiteframe-4dp" layout="column" flex="none" layout-padding>
+          <div layout-gt-sm="row" layout-align="space-between center" flex="none">
+               <div layout="column" flex-gt-sm="45" flex>
+                    <h3>Address</h3>
+
+                    <div class="form-group">
+                         <label class="control-label" for="autoComplete">Autocomplete your address</label>
+                         <input id="autoComplete" type="text" class="form-control" ng-model="vm.autoComplete" address="vm.me.address" googleplace/>
+                    </div>
+
+
+                    <form name="form" ng-submit="vm.update(form, 'address')" novalidate>
+
+                         <div class="form-group">
+                              <label class="control-label" for="streetAddress">Street Name</label>
+                              <input id="streetAddress" type="text" name="streetAddress" class="form-control" ng-model="vm.me.address.streetAddress" ng-disabled="true" required/>
+                         </div>
+
+                         <div class="row">
+                              <div class="col-sm-6">
+                                   <div class="form-group">
+                                        <label class="control-label" for="streetNumeric">House Number</label>
+                                        <input id="streetNumeric" type="text" name="streetNumeric" class="form-control" ng-model="vm.me.address.streetNumeric" ng-disabled="true" required/>
+                                   </div>
+                              </div>
+                              <div class="col-sm-6">
+                                   <div class="form-group">
+                                        <label class="control-label" for="zipCode">Zip Code</label>
+                                        <input id="zipCode" type="text" name="zipCode" class="form-control" ng-model="vm.me.address.zip" ng-disabled="true" required/>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div layout="row" layout-align="end end" flex>
+                              <md-button type="submit" ng-disabled="form.$invalid || vm.isEqual(vm.me.address, vm.origin.address)" class="md-raised md-primary update">
+                                   Update
+                              </md-button>
+                         </div>
+
+                    </form>
+               </div>
+               <div layout="column" flex-gt-sm="45" flex>
+                    <div class="map-wrapper">
+                         <ui-gmap-google-map ng-if="vm.me.address.coordinates[0]" center="vm.me.address.coordinates" zoom="15" draggable="true" options="vm.mapOptions">
+                              <ui-gmap-marker coords="vm.me.address.coordinates" options="vm.marker.options" idkey="0">
+                              </ui-gmap-marker>
+                         </ui-gmap-google-map>
+                    </div>
+               </div>
+          </div>
+     </md-whiteframe>
+
+     <md-whiteframe class="md-whiteframe-4dp" layout="column" flex layout-padding>
+          <div layout-gt-sm="row" layout-align="space-between center" flex="none">
+               <div layout="column" flex-gt-sm="45" flex>
+                    <h3>Delivery Types</h3>
+                    <div layout="row" layout-align="start center" flex="none">
+                         <md-switch flex="none" ng-model="vm.me.delivery[key].enabled" aria-label="delivery" ng-repeat="(key, value) in vm.me.delivery">
+                              {{::key}}
+                         </md-switch>
+                    </div>
+               </div>
+               <div layout="column" flex-gt-sm="45" flex>
+                    <h3>Shipping duration</h3>
+                    <div layout="row" layout-align="start center" flex="none">
+                         <bookis-select flex="none" id="duration" disabled="!vm.me.delivery.shipping.enabled" options="vm.shippingDurations" placeholder="Select" model="vm.me.delivery.shipping.duration"></bookis-select>
+                         <div flex="none">days</div>
+                         <div flex="none" class=".update-duration">
+                              <md-button
+                                   ng-disabled="vm.isEqual(vm.omit(vm.me.delivery, ['shipping.info', 'shipping.policy']), vm.omit(vm.origin.delivery, ['shipping.info', 'shipping.policy']))"
+                                   ng-click="vm.update(null, 'delivery details')" class="md-primary md-raised">Update</md-button>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </md-whiteframe>
+
+     <md-whiteframe class="md-whiteframe-4dp" layout="column" flex layout-padding>
+          <div layout-gt-sm="row" layout-align="space-between center" flex="none">
+               <div layout="column" flex-gt-sm="45" flex>
+                    <h3>Shipping Info</h3>
+                    <textarea ng-disabled="!vm.me.delivery.shipping.enabled" id="info" cols="20" rows="5" class="form-control" ng-model="vm.me.delivery.shipping.info"></textarea>
+                    <div layout="row" layout-align="end end" flex="none">
+                         <md-button
+                              ng-disabled="!vm.me.delivery.shipping.info || vm.isEqual(vm.me.delivery.shipping.info, vm.origin.delivery.shipping.info)"
+                              ng-click="vm.update(null, 'shipping info')" class="md-primary md-raised update">Update</md-button>
+                    </div>
+
+               </div>
+               <div layout="column" flex-gt-sm="45" flex>
+                    <h3>Return Policy</h3>
+                    <textarea ng-disabled="!vm.me.delivery.shipping.enabled" id="policy" cols="20" rows="5" class="form-control" ng-model="vm.me.delivery.shipping.policy"></textarea>
+                    <div layout="row" layout-align="end end" flex="none">
+                         <md-button
+                              ng-disabled="!vm.me.delivery.shipping.policy || vm.isEqual(vm.me.delivery.shipping.policy, vm.origin.delivery.shipping.policy)"
+                              ng-click="vm.update(null, 'return policy')" class="md-primary md-raised update">Update</md-button>
+                    </div>
+               </div>
+          </div>
+     </md-whiteframe>
+
+</div>

@@ -1,0 +1,24 @@
+<div layout="row" id="my-zone" flex>
+     <md-sidenav flex="none" class="side-bar md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')">
+          <div layout="row" layout-align="center center" flex="none">
+               <img ui-sref=".settings.account" ng-if="!vm.me.imageUrl" class="profile-image pointable" src="http://www.meganfox.com/wp-content/uploads/2014/01/5.jpg" alt="">
+               <img ui-sref=".settings.account" ng-if="vm.me.imageUrl" class="profile-image pointable" ng-src="{{vm.me.imageUrl}}" alt="profile image">
+          </div>
+          <div layout="row" class="profile-name pointable" layout-align="center center" ui-sref=".settings.account" flex="none">{{vm.me.businessName || (vm.me.firstName + ' ' + vm.me.lastName)}}</div>
+          <ul>
+               <li layout="row" layout-align="space-between center" ui-sref-active="active" ng-repeat="item in vm.navigationItems" ng-if="!item.hide" ui-sref="{{ item.state }}" ng-click="vm.closeSidenav()">
+                    <a>{{ item.title }}</a>
+                    <div class="list-notification" layout="row" layout-align="center center" ng-if="vm.getLength(item.number)">
+                         <a>{{ vm.getLength(item.number) }}</a>
+                    </div>
+               </li>
+          </ul>
+     </md-sidenav>
+
+     <div flex layout="column">
+          <md-button class="md-icon-button" ng-click="vm.toggle()" hide-gt-xs aria-label="toggle-sidenav">
+               <i class="fa fa-bars"></i>
+          </md-button>
+          <div ui-view="" flex layout="column"></div>
+     </div>
+</div>

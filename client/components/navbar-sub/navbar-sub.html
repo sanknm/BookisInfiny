@@ -1,0 +1,30 @@
+<div class="navbar main-nav navbar-default navbar-static-top" ng-show="!('myzone' | includedByState) && !('main' | isState)">
+     <div class="container">
+          <div class="navbar-header">
+               <button class="navbar-toggle" type="button" ng-click="$ctrl.isCollapsed = !$ctrl.isCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+               </button>
+          </div>
+          <div uib-collapse="$ctrl.isCollapsed" class="navbar-collapse collapse stroke" id="navbar-main">
+               <ul class="nav navbar-nav">
+                    <li ng-repeat="item in $ctrl.menu" ui-sref-active="active" class="pointable">
+                         <a ng-if="item.state" ui-sref="{{item.state}}"><i class="{{item.icon}}" aria-hidden="true" ng-show="item.icon">&nbsp;&nbsp;</i>{{item.title}}</a>
+                         <a ng-if="!item.state"><i class="{{item.icon}}" aria-hidden="true" ng-show="item.icon">&nbsp;&nbsp;</i>{{item.title}}</a>
+                    </li>
+                    <li ng-show="$ctrl.isAdmin()" ui-sref-active="active"><a ui-sref="admin">Admin</a></li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right">
+                    <li ui-sref-active="active"><a ui-sref="sellbooks">Sell Books</a></li>
+                    <li ui-sref-active="active"><a ui-sref="community"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;&nbsp;Community</a></li>
+                    <li><a class="loginlink" ng-if="!$ctrl.isLoggedIn()" ng-click="$ctrl.openLogin()"><span>Login / register</span></a></li>
+                    <li ui-sref-active="active" ng-if="$ctrl.isLoggedIn()"><a ui-sref="myzone"><i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;My Zone</a></li>
+                    <li ui-sref-active="active"><a><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                    <!--<li ng-show="$ctrl.isLoggedIn()"><p class="navbar-text">Hello {{ $ctrl.getCurrentUser().name }}</p> </li>-->
+                    <!--<li ui-sref-active="active"><a><i class="fa fa-bell-o" aria-hidden="true"></i></a></li>-->
+               </ul>
+          </div>
+     </div>
+</div>

@@ -1,0 +1,7 @@
+<md-tabs class="tabs-small people-nav" md-selected="vm.currentNavItem">
+     <md-tab ng-repeat="item in vm.navigationItems" ui-sref="{{ item.state }}" class="tab-name">
+          {{ ::item.title }}
+          <span class="badge" ng-if="item.number.length">{{ item.number.length }}</span>
+     </md-tab>
+</md-tabs>
+<div ui-view="" ></div>

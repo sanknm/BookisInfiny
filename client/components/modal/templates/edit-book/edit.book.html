@@ -1,0 +1,95 @@
+<form name="form" ng-submit="form.$valid && modal.confirm()" class="sell-book-modal" novalidate>
+
+     <div class="row">
+          <div class="col-sm-6">
+               <div class="form-group" ng-class="{ 'has-success': form.isbn.$valid && form.$submitted, 'has-error': form.isbn.$invalid && form.$submitted }">
+                    <label class="control-label" for="isbn">ISBN</label>
+                    <input type="text" class="form-control" id="isbn" name="isbn" placeholder="ISBN" ng-model="modal.edit.book.isbn" required>
+                    <!--<p class="help-block" ng-show="form.isbn.$error.required && form.$submitted">-->
+                    <!--ISBN is required.-->
+                    <!--</p>-->
+               </div>
+          </div>
+          <div class="col-sm-6">
+               <label>&nbsp;</label>
+               <div class="note">
+                    Type in the ISBN to have the rest filled out automatically
+               </div>
+          </div>
+     </div>
+
+     <div class="form-group" ng-class="{ 'has-success': form.name.$valid && form.$submitted, 'has-error': form.name.$invalid && form.$submitted }">
+          <label class="control-label" for="name">Title</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Title" ng-model="modal.edit.book.title" required>
+          <!--<p class="help-block" ng-show="form.name.$error.required && form.$submitted">-->
+          <!--Title is required.-->
+          <!--</p>-->
+     </div>
+
+     <div class="form-group" ng-class="{ 'has-success': form.author.$valid && form.$submitted, 'has-error': form.author.$invalid && form.$submitted }">
+          <label class="control-label" for="author">Author</label>
+          <input type="text" class="form-control" id="author" name="author" placeholder="Author" ng-model="modal.edit.book.author" required>
+          <!--<p class="help-block" ng-show="form.isbn.$error.required && form.$submitted">-->
+          <!--ISBN is required.-->
+          <!--</p>-->
+     </div>
+
+     <div class="row">
+          <div class="col-sm-6">
+               <div class="form-group" ng-class="{ 'has-success': form.year.$valid && form.$submitted, 'has-error': form.year.$invalid && form.$submitted }">
+                    <label class="control-label" for="year">Year</label>
+                    <bookis-select class="small" flex="none" id="year" name="year" options="modal.years" placeholder="Select year" model="modal.edit.book.year" required="true"></bookis-select>
+                    <!--<p class="help-block" ng-show="form.isbn.$error.required && form.$submitted">-->
+                    <!--ISBN is required.-->
+                    <!--</p>-->
+               </div>
+          </div>
+          <div class="col-sm-6">
+               <div class="form-group" ng-class="{ 'has-success': form.format.$valid && form.$submitted, 'has-error': form.format.$invalid && form.$submitted }">
+                    <label class="control-label" for="format">Format</label>
+                    <bookis-select class="small" flex="none" id="format" name="format" options="modal.formats" placeholder="Select format" model="modal.edit.book.format" required="true"></bookis-select>
+                    <!--<p class="help-block" ng-show="form.isbn.$error.required && form.$submitted">-->
+                    <!--ISBN is required.-->
+                    <!--</p>-->
+               </div>
+          </div>
+     </div>
+
+     <div class="row">
+          <div class="col-sm-6">
+               <div class="form-group" ng-class="{ 'has-success': form.condition.$valid && form.$submitted, 'has-error': form.condition.$invalid && form.$submitted }">
+                    <label class="control-label" for="condition">Condition</label>
+                    <bookis-select class="small" flex="none" id="condition" name="condition" options="modal.conditions" placeholder="Select condition" model="modal.edit.book.condition" required="true"></bookis-select>
+                    <!--<p class="help-block" ng-show="form.isbn.$error.required && form.$submitted">-->
+                    <!--ISBN is required.-->
+                    <!--</p>-->
+               </div>
+          </div>
+          <div class="col-sm-6">
+               <div class="form-group" ng-class="{ 'has-success': form.price.$valid && form.$submitted, 'has-error': form.price.$invalid && form.$submitted }">
+                    <label class="control-label" for="price">Price</label>
+                    <input type="text" id="price" name="price" class="form-control" placeholder="Price" ng-model="modal.edit.book.price" allowed-chars="[^0-9]" required>
+                    <!--<p class="help-block" ng-show="form.isbn.$error.required && form.$submitted">-->
+                    <!--ISBN is required.-->
+                    <!--</p>-->
+               </div>
+          </div>
+     </div>
+
+     <a ui-sref="myzone.salesbooth.condition" target="_blank">How to set condition</a>
+
+     <div class="form-group" ng-class="{ 'has-success': form.comment.$valid && form.$submitted, 'has-error': form.comment.$invalid && form.$submitted }">
+          <label class="control-label" for="comment">Comment</label>
+          <textarea id="comment" cols="20" rows="4" class="form-control" ng-model="modal.edit.book.comment" placeholder="Type your comment here..."></textarea>
+          <!--<p class="help-block" ng-show="form.name.$error.required && form.$submitted">-->
+          <!--Title is required.-->
+          <!--</p>-->
+     </div>
+
+
+     <div layout="row" layout-align="end end" flex="none">
+          <md-button class="md-raised" ng-click="modal.cancel()">Cancel</md-button>
+          <md-button type="submit" class="md-raised md-primary">Save</md-button>
+     </div>
+
+</form>

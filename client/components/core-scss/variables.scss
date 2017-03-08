@@ -1,0 +1,32 @@
+$color-primary: #e58638;
+$color-secondary: #383940;
+$color-border: #ccc;
+
+$bookis-colors: (
+    primary: (
+        base: $color-primary,
+        light: lighten($color-primary, 15%),
+        dark: darken($color-primary, 15%),
+        trans: transparentize($color-primary, 0.5)
+    ),
+    secondary: (
+        base: $color-secondary,
+        light: lighten($color-secondary, 15%),
+        dark: darken($color-secondary, 15%),
+        trans: transparentize($color-secondary, 0.5),
+    ),
+    border: (
+        base: $color-border,
+        light: lighten($color-border, 30%),
+    )
+);
+
+@function color($color-name, $color-variant:null) {
+// color variant is optional
+    @if ($color-variant != null) {
+        // map inception
+    @return map-get(map-get($bookis-colors, $color-name), $color-variant);
+    } @else {
+    @return map-get($bookis-colors, $color-name);
+    }
+}

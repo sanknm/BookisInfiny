@@ -1,0 +1,21 @@
+.popular-view {
+    .slick-prev:before, .slick-next:before {
+        font-family: "Glyphicons Halflings", "slick", sans-serif;
+        color: color(secondary, base);
+        font-size: 40px;
+    }
+
+    .slick-prev:before {
+        content: "\e257";
+    }
+    .slick-next:before {
+        content: "\e258";
+    }
+    bookis-slick {
+        margin: 0 50px 0 30px;
+    }
+    .title {
+        margin: 0 80px 0 55px;
+    }
+
+}

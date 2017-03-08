@@ -1,0 +1,18 @@
+<div layout-padding id="following">
+
+     <div layout="row" layout-align="center center" flex="none" class="search-wrapper">
+          <div flex="60" class="user-search">
+               <md-icon ng-if="!vm.searchText" md-svg-src="assets/svg/search.svg" aria-label="search"></md-icon>
+               <md-icon ng-if="vm.searchText" ng-click="vm.searchText=''" md-svg-src="assets/svg/close.svg" aria-label="search"></md-icon>
+               <input type="text" class="form-control" placeholder="Search your friends" ng-model="vm.searchText">
+          </div>
+     </div>
+
+     <div layout="row" flex="none" layout-wrap>
+          <md-whiteframe class="md-whiteframe-4dp" layout-lg="20" flex-gt-md="25" flex-gt-sm="30" flex-sm="50" flex-xs layout-margin layout
+                         ng-repeat="person in vm.me.following | filter: vm.searchText track by person._id">
+               <follow-panel data="person" layout="column" flex unfollow="vm.unfollow({_id})" controls="true"></follow-panel>
+          </md-whiteframe>
+     </div>
+
+</div>

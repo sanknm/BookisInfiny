@@ -1,0 +1,61 @@
+<div layout-padding id="bookshelf">
+     <div layout="row" layout-align="center center" flex="none" flex-gt-sm="75" class="chart-year">
+          <div layout>
+               <md-icon md-svg-src="assets/svg/chevron-left.svg" aria-label="previous" ng-click="vm.refreshChart('-')"></md-icon>
+               <div class="year">{{vm.currentYear}}</div>
+               <md-icon md-svg-src="assets/svg/chevron-right.svg" aria-label="next" ng-click="vm.refreshChart('+')"></md-icon>
+          </div>
+     </div>
+     <div layout-gt-sm="row" layout="column" flex="none" layout-align="space-between" layout-padding>
+          <div layout="column" flex-gt-sm="75">
+               <bookis-chart data="vm.data"></bookis-chart>
+          </div>
+          <div layout-gt-sm="column" layout="row" flex-gt-sm="20" layout-align="space-between" layout-padding>
+               <md-whiteframe class="md-whiteframe-4dp book-panel" layout="column" flex-gt-sm="45" flex layout-align="center center">
+                    <div class="number">{{vm.readBooks.length}}</div>
+                    <div class="sub">Total number of books read</div>
+               </md-whiteframe>
+               <md-whiteframe class="md-whiteframe-4dp book-panel" layout="column" flex-gt-sm="45" flex layout-align="center center">
+                    <div class="number">{{vm.books.length}}</div>
+                    <div class="sub">Used books</div>
+               </md-whiteframe>
+          </div>
+     </div>
+     <md-whiteframe class="md-whiteframe-4dp" layout="column" flex>
+          <table class="table table-condensed table-hover">
+               <thead>
+               <tr>
+                    <th width="20%">Title</th>
+                    <th width="12%">Date</th>
+                    <th width="12%">Price</th>
+                    <th width="12%">My Rating</th>
+                    <th width="12%">Public</th>
+                    <th width="32%">Action</th>
+               </tr>
+               </thead>
+               <tbody>
+
+               <tr ng-repeat="book in vm.books track by book._id">
+                    <td layout="row" layout-align="start center" flex="none" class="title">
+                         <img width="30" height="55" flex="none" ng-src="{{::book.book.imageUrl}}" alt="book image">
+                         <div layout="column" flex>
+                              <div class="book-name">{{::book.book.title}}</div>
+                              <div class="book-author">{{::book.book.author}}</div>
+                         </div>
+                    </td>
+                    <td>{{::book.book.createdAt | date: 'MM/dd/yyyy'}}</td>
+                    <td>{{::book.book.price | currency}}</td>
+                    <td>{{book.book.rating.ownerRate}} <i class="fa fa-star"></i></td>
+                    <td>
+                         <md-switch ng-model="book.public" aria-label="public" class="md-primary" ng-change="vm.updateBookShelf(book)"></md-switch>
+                    </td>
+                    <td>
+                         <md-button class="md-raised md-small" ng-if="!book.read" ng-click="vm.markAsRead(book)">Mark as read</md-button>
+                         <md-button class="md-raised md-small" ng-click="vm.rateBook(book.book)">Review Book</md-button>
+                         <md-button class="md-raised md-small md-primary" ng-click="vm.sellBook(book.book)">Sell</md-button>
+                    </td>
+               </tr>
+               </tbody>
+          </table>
+     </md-whiteframe>
+</div>

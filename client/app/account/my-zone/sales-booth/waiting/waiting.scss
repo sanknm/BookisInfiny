@@ -1,0 +1,29 @@
+#sales-booth-waiting {
+    .md-whiteframe-4dp {
+        .left {
+            img {
+                width: 110px;
+                height: 170px;
+            }
+        }
+        .right {
+            margin-left: 10px;
+            .author {
+                font-size: 10px;
+                color:grey;
+            }
+            .fa-comment-o {
+                font-size: 22px;
+            }
+        }
+    }
+    dl {
+        font-size: 12px;
+        dt {
+            width: 85px;
+        }
+        dd {
+            margin-left: 98px;
+        }
+    }
+}

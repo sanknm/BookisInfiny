@@ -1,0 +1,23 @@
+navbar {
+	box-shadow:0px;
+}
+md-tabs.people-nav {
+    box-shadow: 0 4px 20px -6px grey;
+    background:white;
+    .badge {
+        background-color: color(primary, base);
+        position: relative;
+        bottom: 2px;
+    }
+
+    
+}
+.md-tab{
+    	text-transform:capitalize;
+    }
+.myZone{
+	background-color:#f4f4f4;
+}
+.form-control {
+	font-size:12px;
+}

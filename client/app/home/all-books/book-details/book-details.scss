@@ -1,0 +1,164 @@
+.sub-nav {
+    background-color: #ededed;
+    height: 50px;
+    a {
+        font-size: 12px;
+        color: color(primary, base);
+        &.current {
+            text-decoration: underline;
+        }
+    }
+    md-icon {
+        margin: 0 6px;
+        min-height: 15px;
+        min-width: 15px;
+        height: 15px;
+        width: 15px;
+    }
+}
+
+.book-detail {
+    margin-top: 20px;
+    min-height: 700px;
+    .seller-partial {
+        cursor: pointer;
+        img {
+            @include profile-image(50px, 50px);
+            margin-right: 5px;
+        }
+    }
+    .read-more {
+        margin-top: 5px;
+        a {
+            color: color(primary, base);
+            font-size: 11px;
+        }
+        md-icon {
+            min-height: 15px;
+            min-width: 15px;
+            height: 15px;
+            width: 15px;
+            fill: color(primary, base);
+        }
+    }
+    .book-image {
+        height: 300px;
+        img {
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            max-width: 250px;
+            min-width: 200px;
+        }
+    }
+    .details {
+        h4 {
+            margin-bottom: 0;
+            .year {
+                font-size: 11px;
+                color: grey;
+            }
+        }
+        .author {
+            color: grey;
+        }
+        .genre {
+            color: grey;
+        }
+        .rating-review {
+            margin: 10px 0;
+            span {
+                margin-left: 5px;
+            }
+            a {
+                color: color(primary, base);
+                margin-left: 15px;
+            }
+        }
+        .summary {
+            display: block;
+            display: -webkit-box;
+            margin: 0 auto;
+            -webkit-line-clamp: 6;
+            max-height: 120px;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+    .ratings-comments {
+        .my-rating {
+            .rate-number {
+                width: 30px;
+            }
+            .progress-item {
+                margin-top: 15px;
+                &>*:not(:last-child) {
+                    margin-right: 6px;
+                }
+                .progress {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    .reviews {
+        & > div {
+            margin: 20px 0;
+            img {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                margin-right: 20px;
+            }
+            .review {
+                color: grey;
+            }
+            .reviewer-name {
+                margin-right: 20px;
+            }
+            .reviewer-rating {
+                color: grey;
+            }
+            .fa-reply {
+                margin-left: 15px;
+            }
+            .last-row {
+                .time {
+                    color: grey;
+                }
+                .thumbs {
+                    width: 50px;
+                    i {
+                        font-size: 18px;
+                        color: #365899;
+                        outline: none;
+                    }
+                }
+            }
+        }
+        .replies {
+            md-divider {
+                margin-top: 10px;
+            }
+            margin: 15px 0;
+            img {
+                height: 35px;
+                width: 35px;
+                border-radius: 50%;
+                margin-right: 15px;
+            }
+            .thumbs {
+                i {
+                    font-size: 16px;
+                    color: #365899;
+                    outline: none;
+                }
+            }
+            .reply {
+                color: grey;
+            }
+        }
+    }
+
+}

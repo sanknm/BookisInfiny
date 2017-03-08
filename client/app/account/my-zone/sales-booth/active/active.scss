@@ -1,0 +1,51 @@
+#sales-booth-active {
+    md-whiteframe {
+        padding: 0;
+    }
+    .buttons {
+        margin-right: 10px;
+    }
+    table {
+        margin-bottom: 0;
+        thead {
+            background-color: #e4e3e3;
+            tr {
+                th {
+                    height: 40px;
+                    line-height: 28px;
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    .rate-number {
+                        display: inline-block;
+                        width: 25px;
+                        text-align: right;
+                        margin-right: 4px;
+                    }
+                    i {
+                        outline: none;
+                    }
+                    vertical-align: middle;
+                    .edit {
+                        min-width: 45px;
+                    }
+                    .remove {
+                        min-width: 70px;
+                    }
+                }
+            }
+        }
+    }
+    .title {
+        img {
+            margin-right: 7px;
+        }
+        .book-author {
+            font-size: 10px;
+            color: grey;
+        }
+    }
+}

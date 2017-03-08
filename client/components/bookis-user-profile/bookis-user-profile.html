@@ -1,0 +1,51 @@
+<div class="container" id="profile-page" layout="column">
+     <div layout="row" flex="none" layout-padding>
+          <div flex="none" class="seller-image">
+               <img ng-src="{{::vm.user.imageUrl}}" alt="image">
+          </div>
+          <div layout layout-align="space-between" flex>
+               <div flex="55" layout="column">
+                    <div layout="row" layout-align="space-between">
+                         <div class="name">{{::(vm.user.firstName + ' ' + vm.user.lastName)}}</div>
+                         <div>
+                              <md-button class="md-raised md-primary md-small" ng-disabled="vm.me()._id === vm.user._id">Message</md-button>
+                              <md-button class="md-raised md-small" ng-click="vm[vm.me()._id ? 'toggleFollow' : 'login']()" ng-disabled="vm.me()._id === vm.user._id">
+                                   {{vm.following(vm.me().following, vm.user._id) ? 'Unfollow' : 'Follow'}}
+                              </md-button>
+                         </div>
+                    </div>
+                    <div class="location">Oslo, Norge</div>
+                    <div class="since">Member since: {{::vm.user.createdAt | date: 'dd MMM, yyyy'}}</div>
+                    <div class="about">{{::vm.user.about}}</div>
+               </div>
+               <div flex="40">
+                    <div class="map-wrapper" layout="column" layout-align="center center">
+                         <div style="color:white" ng-if="!vm.user.address.coordinates[0]">
+                              Location not available
+                         </div>
+                         <ui-gmap-google-map
+                              ng-if="vm.user.address.coordinates[0]"
+                              center="vm.user.address.coordinates"
+                              zoom="13" options="vm.mapOptions">
+                              <ui-gmap-marker coords="vm.user.address.coordinates"
+                                              options="vm.markerOptions" idkey="0">
+                              </ui-gmap-marker>
+                         </ui-gmap-google-map>
+                    </div>
+               </div>
+          </div>
+     </div>
+
+     <md-tabs class="tabs-small" md-dynamic-height md-border-bottom flex="none" md-center-tabs>
+          <md-tab ng-repeat="item in vm.items" label="">
+               <md-tab-label>
+                    {{::item.name}}
+                    <span class="badge" ng-if="item.number.length">{{ item.number.length }}</span>
+               </md-tab-label>
+               <md-tab-body>
+                    <ng-include src="item.template"></ng-include>
+               </md-tab-body>
+          </md-tab>
+     </md-tabs>
+
+</div>

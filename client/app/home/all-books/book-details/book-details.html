@@ -1,0 +1,205 @@
+<div class="sub-nav" layout="column" layout-align="center start" flex="none">
+     <div class="container">
+          <div layout="row" layout-align="start center" flex="none">
+               <div layout>
+                    <a flex="none" ui-sref="main">Home</a>
+               </div>
+               <div layout>
+                    <md-icon flex="none" md-svg-src="assets/svg/chevron-right.svg" aria-label="link"></md-icon>
+                    <a flex="none" ui-sref="allbooks.popular">Popular books</a>
+               </div>
+               <div layout>
+                    <md-icon flex="none" md-svg-src="assets/svg/chevron-right.svg" aria-label="link"></md-icon>
+                    <a flex="none" ng-class="{'current': ('allbooks.details' | isState)}" ui-sref="allbooks.details({id: vm.book._id})">{{::vm.book.title}}</a>
+               </div>
+               <div layout ng-if="('allbooks.details.seller' | isState)">
+                    <md-icon flex="none" md-svg-src="assets/svg/chevron-right.svg" aria-label="link"></md-icon>
+                    <a flex="none" ng-class="{'current': ('allbooks.details.seller' | isState)}">{{::(vm.book.user.firstName + ' ' + vm.book.user.lastName)}}</a>
+               </div>
+          </div>
+     </div>
+</div>
+
+<div ui-view>
+     <div class="container book-detail">
+          <div layout-gt-sm="row">
+               <div class="book-image" flex-gt-sm="none" layout-xs layout-align-xs="center center">
+                    <img ng-src="{{vm.book.imageUrl}}" alt="book cover image">
+               </div>
+               <div layout-gt-sm="row" layout-align-gt-sm="space-around">
+                    <div class="details" layout="column" flex-gt-sm="55">
+                         <h4>{{::vm.book.title}}<span class="year">&nbsp;({{::vm.book.year}})</span></h4>
+                         <div class="author">By {{::vm.book.author}}</div>
+                         <div class="genre">{{::vm.book.genre || 'genre'}}</div>
+                         <div layout="row" layout-align="start center" flex="flex" class="rating-review">
+                              <i class="fa fa-star"></i>
+                              <div ng-if="vm.total.rating">
+                                   <span>{{vm.round(vm.average(), 1)}}/5</span>
+                                   <a>See {{vm.total.rating}} ratings</a>
+                              </div>
+                              <div ng-if="!vm.total.rating">
+                                   No ratings
+                              </div>
+                         </div>
+                         <h5>Short summary</h5>
+                         <div class="summary">{{::vm.book.summary}}</div>
+                         <div layout="row" layout-align="start center" flex="none" class="read-more">
+                              <a>Read More<md-icon flex="none" md-svg-src="assets/svg/chevron-down.svg" aria-label="read more"></md-icon></a>
+                         </div>
+                    </div>
+                    <div layout="column" class="actions" flex-gt-sm="40">
+                         <div>Type</div>
+                         <div>{{::vm.book.format}}</div>
+                         <div flex="none">
+                              <md-button class="md-raised md-primary md-small" ng-click="vm[vm.me()._id ? 'requestBook' : 'login']()" ng-disabled="vm.alreadyRequested.length || vm.me()._id == vm.book.user._id">
+                                   {{vm.alreadyRequested.length ? vm.getStatus() : vm.me()._id == vm.book.user._id ? 'Its your book' : 'Request'}}
+                              </md-button>
+                         </div>
+                         <div flex="none">
+                              <md-button ng-if="vm.me()._id !== vm.book.user._id" class="md-raised md-primary md-small" ng-click="vm[vm.me()._id ? 'addToWishList' : 'login']()" ng-disabled="vm.alreadyWishListed.length">
+                                   {{vm.alreadyWishListed.length ? 'Already in wishlist' : 'Wishlist'}}
+                              </md-button>
+                         </div>
+                         <div flex="none" class="seller-partial" layout="row" layout-align="start center" ui-sref=".seller({uid: vm.book.user._id})">
+                              <div flex="none">
+                                   <img ng-src="{{::vm.book.user.imageUrl}}" alt="seller image">
+                              </div>
+                              <div flex layout="column">
+                                   <div>Seller:</div>
+                                   <div>{{::(vm.book.user.firstName + ' ' + vm.book.user.lastName)}}</div>
+                              </div>
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+
+          <div layout="row" layout-align="end end" flex="none">
+               <md-menu md-position-mode="target-right target" md-offset="0 45">
+                    <md-button aria-label="social share" class="md-raised md-small" ng-click="$mdMenu.open()">
+                         <i class="fa fa-share-alt" aria-hidden="true"></i> Share
+                    </md-button>
+                    <md-menu-content width="3">
+                         <md-menu-item ng-repeat="social in vm.social">
+                              <md-button ng-click="$mdMenu.close()"
+                                         socialshare
+                                         socialshare-provider="{{social.provider}}"
+                                         socialshare-via="{{social.key}}"
+                                         socialshare-text="{{vm.book.title}}"
+                                         socialshare-description="{{vm.book.comment}}"
+                                         socialshare-quote="{{vm.book.author +'('+vm.book.year+')'}}"
+                                         socialshare-media="{{vm.book.imageUrl}}"
+                                         socialshare-type="feed"
+                                         socialshare-hashtags="#bookis"
+                                         socialshare-url="http://production.mxgtax9asd.eu-west-1.elasticbeanstalk.com/all-books/58adce2804ec4d36fe9750ec/details">
+                                        {{::social.provider}}
+                              </md-button>
+                         </md-menu-item>
+                    </md-menu-content>
+               </md-menu>
+
+          </div>
+          <md-divider></md-divider>
+
+          <h5>Ratings & Reviews</h5>
+
+          <div layout="row" class="ratings-comments" layout-align="space-between">
+               <div flex="65">
+                    <div layout="column" ng-if="vm.notReviewed()">
+                         <p>Your review</p>
+                         <textarea id="review" cols="20" rows="4" class="form-control" ng-model="vm.review" ng-disabled="!vm.me()._id" placeholder="Type you review here"></textarea>
+                         <div layout="row" layout-align="end end" flex="none">
+                              <md-button class="md-raised md-primary mr0" ng-click="vm.reviewBook(vm.review)" ng-disabled="!vm.review || !vm.me()._id">
+                                   Submit
+                              </md-button>
+                         </div>
+                    </div>
+                    <div ng-if="vm.reviews.length" class="reviews" ng-repeat="review in vm.reviews | orderBy:'-noReplies' track by review._id">
+                         <div layout="row" layout-align="start start" flex="none">
+                              <div class="image" flex="none">
+                                   <img ng-src="{{::review.user.imageUrl}}" alt="user-image">
+                              </div>
+                              <div flex layout="column">
+                                   <div layout="row" layout-align="start center" flex="none">
+                                        <span class="reviewer-name">{{::(review.user.firstName + ' ' + review.user.lastName)}}</span>
+                                        <span class="reviewer-rating"> 3 <i class="fa fa-star"></i></span>
+                                   </div>
+                                   <div class="review">
+                                        {{::review.review}}
+                                   </div>
+                                   <div layout="row" flex="none" layout-align="space-between center" class="last-row">
+                                        <div layout flex layout-align="start center">
+                                             <div ng-if="!review.amFilter" class="time">{{::review.createdAt | date: 'dd MMM, yyyy'}}</div>
+                                             <div ng-if="review.amFilter" class="time" am-time-ago="review.createdAt"></div>
+                                             <md-button class="md-raised md-primary md-small" ng-click="vm.showReplyPartial(review._id, $index)" ng-disabled="!vm.me()._id">Reply</md-button>
+                                             <a layout="row" layout-align="center center" ng-if="review.noReplies" ng-click="review.collapsed=!review.collapsed;">
+                                                  <i class="fa fa-reply" aria-hidden="true"></i>
+                                                  <span>&nbsp;&nbsp;&nbsp;&nbsp;{{review.collapsed ? 'show' : 'hide'}} {{review.noReplies}} replies</span>
+                                             </a>
+                                        </div>
+                                        <div layout="row" flex="none">
+                                             <div layout="row" layout-align="end center" class="thumbs">
+                                                  <span>{{review.likes.length}}&nbsp;&nbsp;</span>
+                                                  <i ng-click="vm.toggleReviewLike(review)" class="fa" ng-class="vm.includes(review.likes, vm.me()._id) ? 'fa-thumbs-up' : 'fa-thumbs-o-up'" aria-hidden="true"></i>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                                   <div class="horizontal-collapse" uib-collapse="review.collapsed" expanding="vm.expanding(review)">
+                                        <div ng-repeat="reply in review.replies track by reply._id" class="replies">
+                                             <div layout="row" layout-align="start start" flex="none">
+                                                  <div class="image" flex="none">
+                                                       <img ng-src="{{::reply.user.imageUrl}}" alt="user-image">
+                                                  </div>
+                                                  <div flex layout="column">
+                                                       <div layout="row" layout-align="start center" flex="none">
+                                                            <span class="replier-name">{{::(reply.user.firstName + ' ' + reply.user.lastName)}}</span>
+                                                       </div>
+                                                       <div class="reply">
+                                                            {{::reply.reply}}
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             <div layout="row" layout-align="end center" flex="none" class="thumbs">
+                                                  <span>{{reply.likes.length}}&nbsp;&nbsp;</span>
+                                                  <i ng-click="vm.toggleReplyLike(review, reply)" class="fa" ng-class="vm.includes(reply.likes, vm.me()._id) ? 'fa-thumbs-up' : 'fa-thumbs-o-up'" aria-hidden="true"></i>
+                                             </div>
+                                             <md-divider ng-if="!$last"></md-divider>
+                                        </div>
+                                        <div ng-if="review.fetched < review.noReplies" layout="row" layout-align="start center" flex="none" class="read-more">
+                                             <a ng-click="vm.getReplies(review)">Show More<md-icon flex="none" md-svg-src="assets/svg/chevron-down.svg" aria-label="show more"></md-icon></a>
+                                        </div>
+                                   </div>
+
+                                   <div class="reply-partial horizontal-collapse" uib-collapse="!review.showReply">
+                                        <div layout="column" layout-align="end end" flex="none">
+                                             <textarea id="{{'reply'+$index}}" cols="20" rows="3" class="form-control" ng-model="vm.reply" ng-disabled="!vm.me()._id" placeholder="Type you reply here"></textarea>
+                                             <div flex="none">
+                                                  <md-button class="md-raised md-primary md-small mr0" ng-disabled="!vm.me()._id || !vm.reply || vm.reply.length < 3" ng-click="vm.createReply(review)">Submit</md-button>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                              </div>
+                         </div>
+                         <md-divider ng-if="!$last"></md-divider>
+                    </div>
+
+
+               </div>
+               <div flex="30" class="my-rating">
+                    <p>Your rating</p>
+                    <bookis-rating rating="vm.myRate[0].rate" dsbl="!vm.me()._id" click="vm[vm.myRate[0].rate ? 'updateRating' : 'crateRating']({rating})"></bookis-rating>
+                    <div ng-repeat="i in [5,4,3,2,1]">
+                         <div layout="row" layout-align="start center" flex="none" class="progress-item">
+                              <span flex="none">{{::i}}</span>
+                              <i flex="none" class="fa fa-star"></i>
+                              <uib-progressbar flex max="100" value="(vm.ratings[$index]/vm.total.rating*100)||0"><span style="color:white; white-space:nowrap;">{{vm.round(vm.ratings[$index]/vm.total.rating*100)+'%'}}</span></uib-progressbar>
+                              <span flex="none" class="rate-number">{{vm.ratings[$index]}}</span>
+                         </div>
+
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>

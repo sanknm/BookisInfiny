@@ -1,0 +1,38 @@
+<div layout-padding id="wishlist">
+     <div ng-if="!vm.wishlist.length">You don't have books in wish list. You can browse books <a ui-sref="allbooks.popular">here</a></div>
+     <md-whiteframe class="md-whiteframe-4dp" layout="column" flex ng-if="vm.wishlist.length">
+          <table class="table table-condensed table-hover">
+               <thead>
+               <tr>
+                    <th width="35%">Title</th>
+                    <th width="12%">Price</th>
+                    <th width="12%">Rating</th>
+                    <th width="12%">Public</th>
+                    <th width="29%">Action</th>
+               </tr>
+               </thead>
+               <tbody>
+               <!--<pre style="font-size:8px;">{{ vm.wishlist | json }}</pre>-->
+               <!--ng-class="{'not-seen' : !wl.seen}"-->
+               <tr ng-repeat="wl in vm.wishlist track by wl._id">
+                    <td layout="row" layout-align="start center" flex="none" class="title">
+                         <img width="30" height="55" flex="none" ng-src="{{::wl.book.imageUrl}}" alt="book image">
+                         <div layout="column" flex>
+                              <div class="book-name">{{::wl.book.title}}</div>
+                              <div class="book-author">{{::wl.book.author}}</div>
+                         </div>
+                    </td>
+                    <td>{{::wl.book.price | currency}}</td>
+                    <td>{{::wl.book.rating.avg}} <i class="fa fa-star"></i></td>
+                    <td>
+                         <md-switch ng-model="wl.public" aria-label="public" class="md-primary" ng-change="vm.updateWishList(wl)"></md-switch>
+                    </td>
+                    <td>
+                         <md-button class="md-raised md-small" ng-click="vm.moveToBookshelf(wl)">Move to bookshelf</md-button>
+                         <md-button class="md-raised md-small md-primary" ng-disabled="vm.alreadyRequested(wl.book._id)" ng-click="vm.fastBuy(wl.book)">Buy</md-button>
+                    </td>
+               </tr>
+               </tbody>
+          </table>
+     </md-whiteframe>
+</div>

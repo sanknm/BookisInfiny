@@ -1,0 +1,55 @@
+#my-zone {
+    .side-bar {
+        width: 220px;
+        background-color: color(secondary, base);
+        ul {
+            list-style: none;
+            padding-left: 0;
+            li {
+                .list-notification {
+                    margin-right: 6px;
+                    border-radius: 50%;
+                    border: 1px solid white;
+                    height: 20px;
+                    width: 20px;
+                    a {
+                        position: relative;
+                        left: -8px;
+                        color: white;
+                    }
+                }
+                line-height: 50px;
+                outline: none;
+                a {
+                    font-weight: bold;
+                    color: white;
+                    vertical-align: middle;
+                    margin-left: 15px;
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+                &:hover {
+                    background-color: color(primary, light);
+                    transition: all .4s ease-in;
+                }
+            }
+        }
+        .profile-image {
+            margin: 20px 0 10px 0;
+            height: 100px;
+            border-radius: 50%;
+            width: 100px;
+            border: 2px solid #d4d4d4;
+        }
+        .profile-name {
+            color: white;
+            margin-bottom: 25px;
+            font-weight: bold;
+            text-transform:capitalize;
+        }
+    }
+    .active {
+        background-color: color(primary, base);
+    }
+}
